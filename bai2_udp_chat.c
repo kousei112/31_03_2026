@@ -12,12 +12,10 @@
 #include <poll.h>
 #include <fcntl.h>
 
-#define BUF_SIZE     1024
-#define PROMPT       "> "
+#define BUF_SIZE 1024
+#define PROMPT "> "
 
-
-static void set_nonblocking(int fd)
-{
+static void set_nonblocking(int fd) {
     int flags = fcntl(fd, F_GETFL, 0);
     if (flags < 0) { perror("fcntl F_GETFL"); exit(1); }
     if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) < 0) {
@@ -25,8 +23,7 @@ static void set_nonblocking(int fd)
     }
 }
 
-static void print_time(void)
-{
+static void print_time(void) {
     time_t t = time(NULL);
     struct tm *tm_info = localtime(&t);
     char tbuf[16];
@@ -34,8 +31,7 @@ static void print_time(void)
     printf("[%s] ", tbuf);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
     if (argc != 4) {
         fprintf(stderr,
@@ -162,7 +158,6 @@ int main(int argc, char *argv[])
                 fflush(stdout);
             }
         }
-
 
         if (fds[0].revents & (POLLHUP | POLLERR)) {
             printf("\nThoat chuong trinh.\n");
